@@ -6,7 +6,6 @@ const fsx = require('fs-extra');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const glob = require('glob');
 
@@ -99,6 +98,7 @@ module.exports.push(
       'hw-button': path.resolve('./packages/button/hw-button.scss'),
       'hw-font': path.resolve('./packages/font/hw-font.scss'),
       'hw-theme': path.resolve('./packages/theme/hw-theme.scss'),
+      'hw-icon': path.resolve('./packages/icon/hw-icon.scss'),
     },
     output: {
       path: OUT_DIR_ABS,
@@ -120,7 +120,12 @@ module.exports.push(
         to: `${OUT_DIR_ABS}/font`,
         flatten: true,
       }]),
-      //new WriteFilePlugin(),
+
+      new CopyWebpackPlugin([{
+        from: './packages/icon/icon/*',
+        to: `${OUT_DIR_ABS}/icon`,
+        flatten: true,
+      }]),
     ],
   }
 );
