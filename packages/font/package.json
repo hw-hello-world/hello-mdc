@@ -1,5 +1,5 @@
 {
-  "name": "@hw/button",
+  "name": "@hw/font",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Haisheng Wu <haisheng.wu@okta.com>",
-  "license": "Apache 2.0",
-  "devDependencies": {
-      "@material/button": "^0.27.0",
-      "@hw/theme": "*"
-  }
+  "license": "Apache-2.0"
 }

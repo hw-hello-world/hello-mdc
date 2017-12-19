@@ -5,23 +5,27 @@ const path = require('path');
 const fsx = require('fs-extra');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const glob = require('glob');
 
 const OUT_DIR_ABS = path.resolve('./dist');
-//const DEMO_ASSET_DIR_REL = '/assets/'; // Used by webpack-dev-server and MDC_BUILD_STATIC_DEMO_ASSETS
+const DEMO_ASSET_DIR_REL = '/';
+const OUT_DEMO_ABS = `${OUT_DIR_ABS}/demos`;
 
 const IS_DEV = process.env.MDC_ENV === 'development';
 const IS_PROD = process.env.MDC_ENV === 'production';
 
-const GENERATE_SOURCE_MAPS = true;
+const WRAP_CSS_IN_JS = false;
+const GENERATE_SOURCE_MAPS = false;
 const DEVTOOL = GENERATE_SOURCE_MAPS ? 'source-map' : false;
 const BUILD_STATIC_DEMO_ASSETS = true;
 
+const CSS_JS_FILENAME_OUTPUT_PATTERN = `[name]${IS_PROD ? '.min' : ''}.css${IS_DEV ? '.js' : '.js-entry'}`;
+const CSS_FILENAME_OUTPUT_PATTERN = `[name]${IS_PROD ? '.min' : ''}.css`;
+
 const CSS_LOADER_CONFIG = [
-  {
-    loader: 'style-loader'
-  },
   {
     loader: 'css-loader',
     options: {
@@ -32,7 +36,10 @@ const CSS_LOADER_CONFIG = [
     loader: 'postcss-loader',
     options: {
       sourceMap: GENERATE_SOURCE_MAPS,
-      plugins: () => [require('autoprefixer')({grid: false})],
+      ident: 'postcss',
+      plugins: () => [
+        require('autoprefixer')({grid: false}),
+      ],
     },
   },
   {
@@ -43,6 +50,17 @@ const CSS_LOADER_CONFIG = [
     },
   },
 ];
+
+
+const createCssLoaderConfig = () =>
+        WRAP_CSS_IN_JS ?
+        [{loader: 'style-loader'}].concat(CSS_LOADER_CONFIG) :
+      ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: CSS_LOADER_CONFIG,
+      });
+
+const createCssExtractTextPlugin = () => new ExtractTextPlugin(CSS_FILENAME_OUTPUT_PATTERN);
 
 
 class PostCompilePlugin {
@@ -57,28 +75,18 @@ class PostCompilePlugin {
 
 const createStaticDemoPlugin = () => {
   return new PostCompilePlugin(() => {
-    if (!BUILD_STATIC_DEMO_ASSETS || !fsx.existsSync(OUT_DIR_ABS)) {
+    if (!fsx.existsSync(OUT_DIR_ABS)) {
       return;
     }
 
-    const demosDirAbs = path.resolve('./demos');
-    const tmpDirAbs = fsx.mkdtempSync(path.join(os.tmpdir(), 'mdc-web-demo-output-'));
+    const demosDirAbs = path.resolve('./node_modules/material-components-web/dist/');
+    const tmpDirAbs = path.resolve('./demos/mdc-web/');
 
     const copyOptions = {
-      filter: (src) => {
-        return !/\.(scss|css.js)$/.test(src);
-      },
     };
 
     fsx.copySync(demosDirAbs, tmpDirAbs, copyOptions);
-    fsx.copySync(OUT_DIR_ABS, path.join(tmpDirAbs, DEMO_ASSET_DIR_REL), copyOptions);
 
-    // The `npm run build` command emits JS/CSS files directly to the $REPO/build/ directory (for distribution via npm).
-    // The `npm run build:demo` command, however, outputs _all_ static demo files (including HTML and images).
-    // Because the demo site expects JS/CSS files to be in /assets/, we need to reorganize the output folders to combine
-    // $REPO/demos/ and $REPO/build/ such that the demo site's import paths don't need to change.
-    fsx.removeSync(OUT_DIR_ABS);
-    fsx.moveSync(tmpDirAbs, OUT_DIR_ABS);
   });
 };
 
@@ -88,21 +96,31 @@ module.exports.push(
   {
     name: 'css',
     entry: {
-      'hw.button': path.resolve('./packages/button/hw-button.scss'),
+      'hw-button': path.resolve('./packages/button/hw-button.scss'),
+      'hw-font': path.resolve('./packages/font/hw-font.scss'),
+      'hw-theme': path.resolve('./packages/theme/hw-theme.scss'),
     },
     output: {
       path: OUT_DIR_ABS,
-      //publicPath: DEMO_ASSET_DIR_REL,
+      publicPath: DEMO_ASSET_DIR_REL,
       filename: '[name].css',
     },
     devtool: DEVTOOL,
     module: {
       rules: [{
         test: /\.scss$/,
-        use: CSS_LOADER_CONFIG,
+        use: createCssLoaderConfig(),
       }],
     },
     plugins: [
+      createCssExtractTextPlugin(),
+
+      new CopyWebpackPlugin([{
+        from: './packages/font/font/*',
+        to: `${OUT_DIR_ABS}/font`,
+        flatten: true,
+      }]),
+      //new WriteFilePlugin(),
     ],
   }
 );
@@ -111,27 +129,27 @@ const demoStyleEntry = {};
 glob.sync('demos/**/*.scss').forEach((filename) => {
   demoStyleEntry[filename.slice(6, -5)] = path.resolve(filename);
 });
+
 module.exports.push(
   {
     name: 'demo-css',
     entry: demoStyleEntry,
     output: {
-      path: `${OUT_DIR_ABS}/demos` ,
-      //publicPath: DEMO_ASSET_DIR_REL,
-      filename: '[name].css.js',
+      path: OUT_DEMO_ABS,
+      publicPath: DEMO_ASSET_DIR_REL,
+      filename: '[name].css',
     },
     devtool: DEVTOOL,
     module: {
       rules: [{
         test: /\.scss$/,
-        use: CSS_LOADER_CONFIG,
+        use: createCssLoaderConfig(),
       }],
     },
     plugins: [
-      new CopyWebpackPlugin([{
-        from: 'demos/*.html',
-        to: `${OUT_DIR_ABS}`,
-      }])
+      createCssExtractTextPlugin(),
+
+      createStaticDemoPlugin(),
     ],
   }
 );
