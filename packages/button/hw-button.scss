@@ -1,0 +1,18 @@
+@import '@material/button/mdc-button';
+
+.mdc-button--primary {
+  @include mdc-button-filled-accessible(#4cbf9c);
+  @include mdc-button-ink-color(#FFF);
+}
+
+
+.mdc-button--std {
+  @include mdc-button-filled-accessible(#f9f9f9);
+  @include mdc-button-ink-color(#5e5e5e);
+}
+
+
+.mdc-button--danger {
+  @include mdc-button-filled-accessible(#e24545);
+  @include mdc-button-ink-color(#FFF);
+}

@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "description": "Hello Material Components Web",
+    "license": "Apache-2.0",
+    "scripts": {
+        "build": "mkdirp dist && webpack --progress --colors",
+        "clean": "del-cli dist/** dist",
+        "dev": "npm run build && webpack-dev-server --progress --content-base dist/demos --inline --hot --host 0.0.0.0 --port 9999"
+    },
+    "devDependencies": {
+        "copy-webpack-plugin": "^4.3.0",
+        "cross-env": "^5.1.1",
+        "css-loader": "^0.28.7",
+        "del-cli": "^1.1.0",
+        "fs-extra": "^5.0.0",
+        "glob": "^7.1.2",
+        "lerna": "^2.0.0-rc.5",
+        "mkdirp": "^0.5.1",
+        "node-sass": "^4.7.2",
+        "postcss-loader": "^2.0.9",
+        "sass-loader": "^6.0.6",
+        "scss-parser": "^1.0.0",
+        "style-loader": "^0.19.1",
+        "webpack": "^3.10.0",
+        "webpack-dev-server": "^2.9.7"
+    }
+}
