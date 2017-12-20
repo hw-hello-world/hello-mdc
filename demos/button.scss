@@ -1,1 +1,17 @@
 @import '../packages/button/hw-button';
+
+@import './common';
+
+body {
+  @include body-common();
+}
+
+fieldset {
+  padding: 20px 0;
+  margin-bottom: 10px;
+}
+
+h2,
+h3 {
+  margin: 10px 0;
+}

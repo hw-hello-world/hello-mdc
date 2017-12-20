@@ -1,16 +1,25 @@
 <html>
     <head>
+        <link rel="stylesheet" href="/demos/reset.css">
+        <link rel="stylesheet" href="/mdc-web/material-components-web.css">
+
         <link rel="stylesheet" href="/hw-font.css">
         <link rel="stylesheet" href="/hw-icon.css">
+
         <link rel="stylesheet" href="/demos/button.css">
     </head>
     <body>
 
-        <a href="/">Back</a>
         <div class="mdc-form-field">
-            <input type="checkbox" class="mdc-checkbox__native-control" id="toggle-disabled" aria-labelledby="toggle-disabled-label">
-            <label for="toggle-disabled" id="toggle-disabled-label">Disable buttons (excluding links)</label>
+            <a class="mdc-button mdc-button--stroked" href="/">Back</a>
         </div>
+
+        <fieldset>
+            <div class="mdc-form-field">
+                <input type="checkbox" id="toggle-disabled">
+                <label for="toggle-disabled" id="toggle-disabled-label">Disable buttons (excluding links)</label>
+            </div>
+        </fieldset>
 
         <fieldset>
             <h2>Button</h2>
@@ -32,26 +41,26 @@
         <fieldset>
             <h2>CSS Only Button</h2>
             <h3>Raised button<h3>
-            <div>
-                <a data-demo-no-js class="mdc-button mdc-button--raised mdc-button--std">Standard</a>
-                <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--primary">Primary</button>
-                <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--danger">Error</button>
-                <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--std">
-                    <i class="icon mdc-button__icon">&#xe050</i>
-                    Icon Button
-                </button>
-            </div>
+                <div>
+                    <a data-demo-no-js class="mdc-button mdc-button--raised mdc-button--std">Standard</a>
+                    <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--primary">Primary</button>
+                    <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--danger">Error</button>
+                    <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--std">
+                        <i class="icon mdc-button__icon">&#xe050</i>
+                        Icon Button
+                    </button>
+                </div>
 
-            <h3>Stroked Button</h3>
-            <div>
-                <a data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std">Standard</a>
-                <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--primary">Primary</button>
-                <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--danger">Error</button>
-                <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std">
-                    <i class="icon mdc-button__icon">&#xe050</i>
-                    Icon Button
-                </button>
-            </div>
+                <h3>Stroked Button</h3>
+                <div>
+                    <a data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std">Standard</a>
+                    <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--primary">Primary</button>
+                    <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--danger">Error</button>
+                    <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std">
+                        <i class="icon mdc-button__icon">&#xe050</i>
+                        Icon Button
+                    </button>
+                </div>
         </fieldset>
 
         <script src="/mdc-web/material-components-web.js"></script>
@@ -67,7 +76,7 @@
 
              document.getElementById('toggle-disabled').addEventListener('change', function () {
                  var isDisabled = this.checked;
-                 [].slice.call(document.querySelectorAll('button')).forEach(function(button) {
+                 [].slice.call(document.querySelectorAll('.mdc-button')).forEach(function(button) {
                      button.disabled = isDisabled;
                  });
              });
