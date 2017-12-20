@@ -1,0 +1,9 @@
+@mixin mk-border-color($bg-color, $border-factor) {
+  $_default-border-color: darken($bg-color, $border-factor);
+  @include mdc-button-stroke-color($_default-border-color);
+
+}
+
+@mixin dark-border-color($bg-color) {
+  @include mk-border-color($bg-color, 15%);
+}

@@ -1,36 +1,57 @@
 @import '@material/button/mdc-button';
 @import '@hw/theme/variables';
+@import './mixins';
 
 .mdc-button {
+
+  @include mdc-button-corner-radius($border-radius-default);
+
   font-family: $body-font-family;
-  font-size: 13px;
+  font-size: $body-font-size;
   height: 28px;
   line-height: 28px;
   padding-left: 10px;
   padding-right: 10px;
   text-transform: initial;
-  border-radius: 3px;
 
   //font-smoothing: auto;
   //-moz-osx-font-smoothing: auto;
   //-webkit-font-smoothing: auto;
+
+  &.mdc-button--stroked {
+    @include mdc-button-stroke-width(1px);
+
+    line-height: 28px;
+  }
 }
 
 .mdc-button--primary {
   @include mdc-button-filled-accessible($btn-bg-color-primary);
   @include mdc-button-ink-color($white);
+
+  &.mdc-button--stroked {
+    @include dark-border-color($btn-bg-color-primary);
+  }
 }
 
 
 .mdc-button--std {
   @include mdc-button-filled-accessible($btn-bg-color-default);
   @include mdc-button-ink-color($text-color-dark);
+
+  &.mdc-button--stroked {
+    @include dark-border-color($btn-bg-color-default);
+  }
 }
 
 
 .mdc-button--danger {
   @include mdc-button-filled-accessible($btn-bg-color-danger);
   @include mdc-button-ink-color($white);
+
+  &.mdc-button--stroked {
+    @include dark-border-color($btn-bg-color-danger);
+  }
 }
 
 .mdc-button__icon {
