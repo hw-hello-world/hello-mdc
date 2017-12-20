@@ -9,7 +9,7 @@
   "author": "Haisheng Wu <haisheng.wu@okta.com>",
   "license": "Apache 2.0",
   "devDependencies": {
-      "@material/button": "^0.27.0",
-      "@hw/theme": "*"
+    "@material/button": "^0.27.0",
+    "@hw/theme": "^1.0.0"
   }
 }
