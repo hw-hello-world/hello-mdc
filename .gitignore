@@ -2,3 +2,4 @@ node_modules
 dist
 demos/mdc-web
 lerna-debug.log
+yarn-error.log
