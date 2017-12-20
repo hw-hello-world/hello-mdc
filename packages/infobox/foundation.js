@@ -3,29 +3,31 @@ import {cssClasses, strings, numbers} from './constants';
 
 
 class OktaInfoboxFoundation extends MDCFoundation {
-  /** @return enum {cssClasses} */
+
   static get cssClasses() {
     return cssClasses;
   }
 
-  /** @return enum {strings} */
   static get strings() {
     return strings;
   }
 
-  /** @return enum {numbers} */
   static get numbers() {
     return numbers;
   }
 
   static get defaultAdapter() {
     return ({
-      registerCloseEndHandler(handler) {}
+      dismiss() {}
     });
   }
 
   constructor(adapter) {
     super(Object.assign(OktaInfoboxFoundation.defaultAdapter, adapter));
+  }
+
+  dismiss() {
+    this.adapter_.dismiss();
   }
 
   init() {

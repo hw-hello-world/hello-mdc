@@ -5,7 +5,6 @@
 
         <link rel="stylesheet" href="/hw-font.css">
         <link rel="stylesheet" href="/hw-icon.css">
-        <link rel="stylesheet" href="/hw-button.css">
 
         <link rel="stylesheet" href="/demos/infobox.css">
     </head>
@@ -60,15 +59,16 @@
             </div>
         </div>
 
-        <script src="/mdc-web/material-components-web.js"></script>
+        <!-- <script src="/mdc-web/material-components-web.js"></script> -->
+        <script src="/hw-infobox.js"></script>
         <script>
          (function() {
 
              function init() {
                  var btns = document.querySelectorAll('.infobox-dismiss');
-                 for (var i = 0, btn; btn = btns[i]; i++) {
-                     mdc.ripple.MDCRipple.attachTo(btn);
-                 }
+                 btns.forEach((btn) => {
+                     mdc.infobox.OktaInfobox.attachTo(btn);
+                 });
              }
 
              init();

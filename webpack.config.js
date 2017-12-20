@@ -4,12 +4,12 @@ const os = require('os');
 const path = require('path');
 const fsx = require('fs-extra');
 const webpack = require('webpack');
+const glob = require('glob');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const glob = require('glob');
-
 const OUT_DIR_ABS = path.resolve('./dist');
+// public path for dev server. doesn't expect other prefix cause the font importing url starts from root.
 const DEMO_ASSET_DIR_REL = '/';
 const OUT_DEMO_ABS = `${OUT_DIR_ABS}/demos`;
 
@@ -92,48 +92,82 @@ const createStaticDemoPlugin = () => {
 module.exports = [];
 
 const cssEntries = glob.sync('packages/*/hw-*.scss')
-  .reduce((init, filename) => {
-    const xs = filename.split('/');
-    const key = xs[xs.length - 1].slice(0, -5);
-    const filepath = path.resolve(`./${filename}`);
+        .reduce((init, filename) => {
+          const xs = filename.split('/');
+          const key = xs[xs.length - 1].slice(0, -5);
+          const filepath = path.resolve(`./${filename}`);
 
-    return Object.assign(init, {[key]: filepath});
-  }, {});
+          return Object.assign(init, {[key]: filepath});
+        }, {});
 
+module.exports.push({
+  name: 'css',
+  entry: cssEntries,
+  output: {
+    path: OUT_DIR_ABS,
+    publicPath: DEMO_ASSET_DIR_REL,
+    filename: '[name].css',
+  },
+  devtool: DEVTOOL,
+  module: {
+    rules: [{
+      test: /\.scss$/,
+      use: createCssLoaderConfig(),
+    }],
+  },
+  plugins: [
+    createCssExtractTextPlugin(),
 
-module.exports.push(
-  {
-    name: 'css',
-    entry: cssEntries,
-    output: {
-      path: OUT_DIR_ABS,
-      publicPath: DEMO_ASSET_DIR_REL,
-      filename: '[name].css',
-    },
-    devtool: DEVTOOL,
-    module: {
-      rules: [{
-        test: /\.scss$/,
-        use: createCssLoaderConfig(),
-      }],
-    },
-    plugins: [
-      createCssExtractTextPlugin(),
+    new CopyWebpackPlugin([{
+      from: './packages/font/font/*',
+      to: `${OUT_DIR_ABS}/font`,
+      flatten: true,
+    }]),
 
-      new CopyWebpackPlugin([{
-        from: './packages/font/font/*',
-        to: `${OUT_DIR_ABS}/font`,
-        flatten: true,
-      }]),
+    new CopyWebpackPlugin([{
+      from: './packages/icon/icon/*',
+      to: `${OUT_DIR_ABS}/icon`,
+      flatten: true,
+    }]),
+  ],
+});
 
-      new CopyWebpackPlugin([{
-        from: './packages/icon/icon/*',
-        to: `${OUT_DIR_ABS}/icon`,
-        flatten: true,
-      }]),
-    ],
-  }
-);
+const jsEntries = glob.sync('packages/*/index.js')
+        .reduce((init, filename) => {
+          const xs = filename.split('/');
+          const key = xs[xs.length - 2];
+          const filepath = path.resolve(`./${filename}`);
+
+          return Object.assign(init, {[key]: filepath});
+        }, {});
+
+console.log(jsEntries);
+
+module.exports.push({
+  name: 'js-components',
+  entry: jsEntries,
+  output: {
+    path: OUT_DIR_ABS,
+    publicPath: DEMO_ASSET_DIR_REL,
+    filename: 'hw-[name].' + (IS_PROD ? 'min.' : '') + 'js',
+    libraryTarget: 'umd',
+    library: ['mdc', '[name]'],
+  },
+  devtool: DEVTOOL,
+  module: {
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true,
+      },
+    }],
+  },
+  plugins: [
+
+  ],
+});
 
 const demoStyleEntry = {};
 glob.sync('demos/**/*.scss').forEach((filename) => {

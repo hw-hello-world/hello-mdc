@@ -14,9 +14,9 @@
   padding-right: 10px;
   text-transform: initial;
 
-  //font-smoothing: auto;
-  //-moz-osx-font-smoothing: auto;
-  //-webkit-font-smoothing: auto;
+  font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: auto;
 
   &.mdc-button--stroked {
     @include mdc-button-stroke-width(1px);
@@ -59,4 +59,8 @@
   height: 16px;
   margin-right: 4px;
   font-size: 16px;
+}
+
+a.mdc-button {
+  text-decoration: none;
 }

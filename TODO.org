@@ -6,9 +6,11 @@
     3. [X] what is ~publicPath~? A directory (in-memory) that serve
        static assets.
 
-  - [ ] Button
+  - Button
     - Extends material component
-    - [ ] ~a~ button cannot be disabled?
+    - [X] ~a~ button cannot be disabled. Disabling is done via
+      ~button.disabled~ property where ~a~ doesn't have. Maybe it's
+      semantically incorrect to /disable/ a link?
 
   - [X] icon
     1. easily integrated.
@@ -23,6 +25,7 @@
 
   - [ ] form field samples
 
-  - [ ] Callout
+  - Callout
     + demo migrating to a customized component.
+    + [ ] implement the dismiss-able callout
     + [ ] can icon hardly depend on the top style hence dont need to declare icon?
