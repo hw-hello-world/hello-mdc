@@ -1,0 +1,7 @@
+@import '../packages/modal/hw-modal';
+
+@import './common';
+
+body {
+  @include body-common();
+}

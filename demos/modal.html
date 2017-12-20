@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/demos/reset.css">
+        <link rel="stylesheet" href="/mdc-web/material-components-web.css">
+
+        <link rel="stylesheet" href="/hw-font.css">
+        <link rel="stylesheet" href="/hw-icon.css">
+        <link rel="stylesheet" href="/hw-button.css">
+
+        <link rel="stylesheet" href="/demos/modal.css">
+    </head>
+    <body>
+
+        <div class="mdc-form-field">
+            <a class="mdc-button mdc-button--stroked" href="/">Back</a>
+        </div>
+
+        <div class="demo-body">
+            <aside id="mdc-dialog-default"
+                   class="mdc-dialog"
+                   role="alertdialog"
+                   aria-hidden="true"
+                   aria-labelledby="mdc-dialog-default-label"
+                   aria-describedby="mdc-dialog-default-description">
+                <div class="mdc-dialog__surface">
+                    <header class="mdc-dialog__header">
+                        <h2 id="mdc-dialog-default-label" class="mdc-dialog__header__title">
+                            Use Google's location service?
+                        </h2>
+                    </header>
+                    <section id="mdc-dialog-default-description" class="mdc-dialog__body">
+                        Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+                    </section>
+                    <footer class="mdc-dialog__footer">
+                        <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
+                        <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
+                    </footer>
+                </div>
+                <div class="mdc-dialog__backdrop"></div>
+            </aside>
+        </div>
+
+
+        <fieldset>
+            <div>
+                <a data-demo-no-js
+                   id="default-dialog"
+                   class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std">
+                    Open Modal
+                </a>
+            </div>
+        </fieldset>
+
+        <script src="/mdc-web/material-components-web.js"></script>
+        <script>
+         (function() {
+
+             var dialog = new mdc.dialog.MDCDialog(document.querySelector('#mdc-dialog-default'));
+             dialog.listen('MDCDialog:accept', function() {
+                 console.log('accepted');
+             });
+             dialog.listen('MDCDialog:cancel', function() {
+                 console.log('canceled');
+             });
+             document.querySelector('#default-dialog').addEventListener('click', function (evt) {
+                 dialog.lastFocusedTarget = evt.target;
+                 dialog.show();
+             });
+
+         })();
+        </script>
+    </body>
+</html>

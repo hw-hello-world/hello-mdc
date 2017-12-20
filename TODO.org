@@ -23,7 +23,7 @@
 
   - [ ] Dialog
 
-  - [ ] form field samples
+  - [ ] Form field
 
   - Callout
     + demo migrating to a customized component.
