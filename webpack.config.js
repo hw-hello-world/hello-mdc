@@ -91,15 +91,20 @@ const createStaticDemoPlugin = () => {
 
 module.exports = [];
 
+const cssEntries = glob.sync('packages/*/hw-*.scss')
+  .reduce((init, filename) => {
+    const xs = filename.split('/');
+    const key = xs[xs.length - 1].slice(0, -5);
+    const filepath = path.resolve(`./${filename}`);
+
+    return Object.assign(init, {[key]: filepath});
+  }, {});
+
+
 module.exports.push(
   {
     name: 'css',
-    entry: {
-      'hw-button': path.resolve('./packages/button/hw-button.scss'),
-      'hw-font': path.resolve('./packages/font/hw-font.scss'),
-      'hw-theme': path.resolve('./packages/theme/hw-theme.scss'),
-      'hw-icon': path.resolve('./packages/icon/hw-icon.scss'),
-    },
+    entry: cssEntries,
     output: {
       path: OUT_DIR_ABS,
       publicPath: DEMO_ASSET_DIR_REL,

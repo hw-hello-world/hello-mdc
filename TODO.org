@@ -1,4 +1,27 @@
-- [ ] fix the build problem
-  1. [ ] webpack server
-  2. [ ] build demo css
-  3. [ ] what is ~publicPath~?
+* POC
+
+  - [X] fix the build problem
+    1. [X] webpack server
+    2. [X] build demo css
+    3. [X] what is ~publicPath~? A directory (in-memory) that serve
+       static assets.
+
+  - [X] button
+    - Extends material component
+
+  - [X] icon
+    1. easily integrated.
+    2. probably could keep using the existing icon styles unless we like
+       new approach. (ligatures)
+    3. will ligatures possibly simplify use case?
+    4. Ligatures :: which allows rendering of an icon glyph simply by using its textual name.
+
+  - [ ] Tabs
+
+  - [ ] Dialog
+
+  - [ ] form field samples
+
+  - [ ] Callout
+    + demo migrating to a customized component.
+    + [ ] can icon hardly depend on the top style hence dont need to declare icon?

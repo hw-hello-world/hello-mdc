@@ -1,0 +1,27 @@
+@import '@hw/theme/variables';
+@import './variables';
+@import './legacy';
+
+.infobox {
+  color: $text-color-dark;
+  font-family: $body-font-family;
+  font-size: $body-font-size;
+
+  .bullets {
+    list-style-type: disc;
+  }
+
+  // due to different approach at using icon.
+  .icon {
+    color: $white;
+  }
+
+  &.infobox-md .icon {
+    font-size: 24px;
+  }
+
+  .infobox-dismiss-link .icon {
+    color: $text-color-light;
+  }
+
+}

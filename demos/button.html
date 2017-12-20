@@ -6,6 +6,7 @@
     </head>
     <body>
 
+        <a href="/">Back</a>
         <div class="mdc-form-field">
             <input type="checkbox" class="mdc-checkbox__native-control" id="toggle-disabled" aria-labelledby="toggle-disabled-label">
             <label for="toggle-disabled" id="toggle-disabled-label">Disable buttons (excluding links)</label>
@@ -34,7 +35,7 @@
                 <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--std">Standard</button>
                 <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--primary">Primary</button>
                 <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--danger">Error</button>
-                <button class="mdc-button mdc-button--raised mdc-button--std">
+                <button data-demo-no-js class="mdc-button mdc-button--raised mdc-button--std">
                     <i class="icon mdc-button__icon">&#xe050</i>
                     Icon Button
                 </button>
@@ -43,13 +44,7 @@
 
         <script src="/mdc-web/material-components-web.js"></script>
         <script>
-         // Because we load our CSS via webpack, we need to ensure that all of the correct styles
-         // are applied before ripples are attached. Otherwise, ripples may use the computed styles of
-         // elements before our CSS is applied, leading to improper UX.
          (function() {
-             setTimeout(function() {
-                 init();
-             }, 250);
 
              function init() {
                  var btns = document.querySelectorAll('.mdc-button:not([data-demo-no-js])');
@@ -63,9 +58,9 @@
                  [].slice.call(document.querySelectorAll('button')).forEach(function(button) {
                      button.disabled = isDisabled;
                  });
-
              });
 
+             init();
          })();
         </script>
     </body>

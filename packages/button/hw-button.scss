@@ -32,3 +32,10 @@
   @include mdc-button-filled-accessible($btn-bg-color-danger);
   @include mdc-button-ink-color($white);
 }
+
+.mdc-button__icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  font-size: 16px;
+}

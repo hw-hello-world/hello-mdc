@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/demos/reset.css">
+
+        <link rel="stylesheet" href="/hw-font.css">
+        <link rel="stylesheet" href="/hw-icon.css">
+
+        <link rel="stylesheet" href="/demos/infobox.css">
+    </head>
+
+    <body>
+        <a href="/">Back</a>
+
+        <div id="container">
+
+            <div class="infobox clearfix infobox-info infobox-compact">
+                <i class="icon">&#xe053</i>
+                <p>A compact/info callout with a subtitle only</p>
+            </div>
+
+            <div class="infobox clearfix infobox-info infobox-dismiss" >
+                <a class="infobox-dismiss-link" title="Dismiss" href="#">
+                    <i class="icon">&#xe04f</i>
+                </a>
+                <i class="icon">&#xe053</i>
+                <h3>A standard/info dismissible callout</h3>
+            </div>
+
+            <div class="infobox clearfix infobox-success">
+                <i class="icon">&#xe051</i>
+                <h3>A standard/success callout with title only</h3>
+            </div>
+
+            <div class="infobox clearfix infobox-error">
+                <i class="icon">&#xe055</i>
+                <p>A standard/error callout with a subtitle and bullets</p>
+                <ul class="bullets">
+                    <li>Here's a list item</li>
+                    <li>Don't punctuate list items</li>
+                    <li>Generally you don't want to use a list unless you have at least three items</li>
+                </ul>
+            </div>
+
+            <div class="infobox clearfix infobox-tip">
+                <i class="icon">&#xe062</i>
+                <h3>A standard/tip callout with custom HTML content</h3>
+                <div>The content is <a href="#">NOT escaped</a>
+                </div>
+            </div>
+
+            <div class="infobox clearfix infobox-warning infobox-md">
+                <i class="icon">&#xe058</i>
+                <h3>A large/warning callout with both</h3>
+                <p>a title and a subtitle</p>
+            </div>
+        </div>
+
+        <script src="/mdc-web/material-components-web.js"></script>
+        <script>
+         (function() {
+
+             function init() {
+                 var btns = document.querySelectorAll('.infobox-dismiss');
+                 for (var i = 0, btn; btn = btns[i]; i++) {
+                     mdc.ripple.MDCRipple.attachTo(btn);
+                 }
+             }
+
+             init();
+
+         })();
+        </script>
+    </body>
+</html>

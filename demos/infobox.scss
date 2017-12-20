@@ -1,0 +1,7 @@
+@import '../packages/infobox/hw-infobox';
+
+@import './common';
+
+body {
+  @include body-common();
+}
