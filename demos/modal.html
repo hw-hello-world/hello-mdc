@@ -5,8 +5,6 @@
 
         <link rel="stylesheet" href="/hw-font.css">
         <link rel="stylesheet" href="/hw-icon.css">
-        <link rel="stylesheet" href="/hw-button.css">
-        <link rel="stylesheet" href="/hw-form.css">
 
         <link rel="stylesheet" href="/demos/modal.css">
     </head>
@@ -33,14 +31,15 @@
                         Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
                     </section>
                     <footer class="mdc-dialog__footer">
-                        <button type="button" class="mdc-button mdc-button--raised mdc-button--primary mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
-                        <button type="button" class="mdc-button mdc-button--raised mdc-button--std mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
+                        <button type="button" class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--primary mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
+                        <button type="button" class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
                     </footer>
                 </div>
                 <div class="mdc-dialog__backdrop"></div>
             </aside>
 
             <aside id="mdc-dialog-form"
+                   data-is-form-dialog="true"
                    class="mdc-dialog simplemodal-wrap"
                    role="alertdialog"
                    aria-hidden="true"
@@ -60,8 +59,12 @@
                             <div class="o-form-fieldset-container" data-se="o-form-fieldset-container"></div>
                         </div>
                         <div class="o-form-button-bar">
-                            <input class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--primary" type="submit" value="OK" data-type="save">
-                            <input class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std" type="button" value="Cancel" data-type="cancel">
+                            <input class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--primary"
+                                   type="submit"
+                                   value="OK"
+                                   data-type="save">
+                            <input class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std"
+                                   type="button" value="Cancel" data-type="cancel">
                         </div>
                     </form>
 
@@ -92,11 +95,41 @@
         <script>
          (function() {
 
+             // Got to extend the MDCDialog cause its internal implementation for handling click 'accept' button
+             // is 1) emit event (MDCDialog:accept) and 2) close the dialog anyway.
+             // Apparently form dialog needs the ability to stop the 'close' action when form error.
+             class FormDialog extends mdc.dialog.MDCDialog {
+
+                 initialize() {
+                     super.initialize();
+
+                     const form = this.root_.querySelector('form');
+                     form.addEventListener('submit', (event) => {
+                         event.preventDefault();
+                         // TODO: probably an adapter interface to allow further customization.
+                         console.log('Form Submitted.');
+                         this.close();
+                     })
+                     form.querySelector('input[data-type="cancel"]').addEventListener('click', (event) => {
+                         this.close();
+                     })
+
+                 }
+             }
+
              const btns = document.querySelectorAll('.modal-triggers .mdc-button');
 
              btns.forEach((btn) => {
                  const modalId = btn.dataset.modalId;
-                 var dialog = new mdc.dialog.MDCDialog(document.querySelector(`#${modalId}`));
+                 const modalEl = document.querySelector(`#${modalId}`)
+                 let dialog;
+
+                 if (modalEl.dataset.isFormDialog) {
+                     dialog = new FormDialog(modalEl);
+                 } else {
+                     dialog = new mdc.dialog.MDCDialog(modalEl);
+                 }
+
                  dialog.listen('MDCDialog:accept', function() {
                      console.log('accepted');
                  });

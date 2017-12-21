@@ -28,9 +28,11 @@
 
     + style of courage modal is actually more coming from form.
     + modal itself has few styles.
+    + customized to FormDialog
 
+  - Form
 
-  - [ ] Form
+    + need more thoughts
 
   - Callout
 
