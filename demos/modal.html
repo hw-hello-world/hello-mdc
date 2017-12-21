@@ -25,28 +25,60 @@
                 <div class="mdc-dialog__surface">
                     <header class="mdc-dialog__header">
                         <h2 id="mdc-dialog-default-label" class="mdc-dialog__header__title">
-                            Use Google's location service?
+                            Material Dialog
                         </h2>
                     </header>
                     <section id="mdc-dialog-default-description" class="mdc-dialog__body">
                         Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
                     </section>
                     <footer class="mdc-dialog__footer">
-                        <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
-                        <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
+                        <button type="button" class="mdc-button mdc-button--raised mdc-button--primary mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
+                        <button type="button" class="mdc-button mdc-button--raised mdc-button--std mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
                     </footer>
                 </div>
+                <div class="mdc-dialog__backdrop"></div>
+            </aside>
+
+            <aside id="mdc-dialog-form"
+                   class="mdc-dialog"
+                   role="alertdialog"
+                   aria-hidden="true"
+                   aria-labelledby="mdc-dialog-default-label"
+                   aria-describedby="mdc-dialog-default-description">
+                <form class="hw-form">
+                    <div class="mdc-dialog__surface">
+                        <header class="mdc-dialog__header">
+                            <h2 id="mdc-dialog-default-label" class="mdc-dialog__header__title">
+                                Form Dialog
+                            </h2>
+                        </header>
+                        <section id="mdc-dialog-default-description" class="mdc-dialog__body">
+                            Think of variables as a way to store information that you want to reuse throughout your stylesheet. You can store things like colors, font stacks, or any CSS value you think you'll want to reuse.
+                        </section>
+                        <footer class="mdc-dialog__footer">
+                            <button type="button" class="mdc-button mdc-button--raised mdc-button--primary mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
+                            <button type="button" class="mdc-button mdc-button--raised mdc-button--std mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
+                        </footer>
+                    </div>
+                </form>
                 <div class="mdc-dialog__backdrop"></div>
             </aside>
         </div>
 
 
         <fieldset>
-            <div>
+            <div class="modal-triggers">
                 <a data-demo-no-js
                    id="default-dialog"
+                   data-modal-id="mdc-dialog-default"
                    class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std">
                     Open Modal
+                </a>
+                <a data-demo-no-js
+                   id="form-dialog"
+                   data-modal-id="mdc-dialog-form"
+                   class="mdc-button mdc-button--raised mdc-button--stroked mdc-button--std">
+                    Open Form Modal
                 </a>
             </div>
         </fieldset>
@@ -55,16 +87,21 @@
         <script>
          (function() {
 
-             var dialog = new mdc.dialog.MDCDialog(document.querySelector('#mdc-dialog-default'));
-             dialog.listen('MDCDialog:accept', function() {
-                 console.log('accepted');
-             });
-             dialog.listen('MDCDialog:cancel', function() {
-                 console.log('canceled');
-             });
-             document.querySelector('#default-dialog').addEventListener('click', function (evt) {
-                 dialog.lastFocusedTarget = evt.target;
-                 dialog.show();
+             const btns = document.querySelectorAll('.modal-triggers .mdc-button');
+
+             btns.forEach((btn) => {
+                 const modalId = btn.dataset.modalId;
+                 var dialog = new mdc.dialog.MDCDialog(document.querySelector(`#${modalId}`));
+                 dialog.listen('MDCDialog:accept', function() {
+                     console.log('accepted');
+                 });
+                 dialog.listen('MDCDialog:cancel', function() {
+                     console.log('canceled');
+                 });
+                 btn.addEventListener('click', function (evt) {
+                     dialog.lastFocusedTarget = evt.target;
+                     dialog.show();
+                 });
              });
 
          })();

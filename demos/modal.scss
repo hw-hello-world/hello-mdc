@@ -5,3 +5,7 @@
 body {
   @include body-common();
 }
+
+.mdc-form-field {
+  margin-bottom: 10px;
+}
