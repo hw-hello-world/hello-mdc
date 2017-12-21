@@ -1,0 +1,10 @@
+@import '@hw/theme/variables';
+
+@import './variables';
+@import './legacy';
+
+form {
+  color: $text-color-dark;
+  font-family: "proxima-nova", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}

@@ -1,1 +1,26 @@
 // @material/dialog doesn't provide any scss mixins helping overridding.
+
+@import '@hw/theme/variables';
+
+.mdc-dialog__header {
+  color: $white;
+  padding: 0 0 0 24px;
+  font-size: 17px;
+  font-weight: 200;
+  line-height: 54px;
+  height: 54px;
+  border: $primary-border-color;
+  background: $primary-color;
+}
+
+.mdc-dialog__footer {
+  border-color: $border-bottom-color-default;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 1px 0;
+  box-shadow: 0 1px 1px rgba(175, 175, 175, 0.16);
+  margin-top: 0;
+  padding: 16px;
+  text-align: right;
+  background: $component-bg-color-dark;
+}
