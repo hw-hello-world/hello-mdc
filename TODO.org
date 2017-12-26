@@ -1,41 +1,41 @@
 * POC
 
-  - [X] fix the build problem
+** fix the build problem
 
-    1. [X] webpack server
-    2. [X] build demo css
-    3. [X] what is ~publicPath~? A directory (in-memory) that serve
-       static assets.
+   1. [X] webpack server
+   2. [X] build demo css
+   3. [X] what is ~publicPath~? A directory (in-memory) that serve
+      static assets.
 
-  - Button
+** Button
 
-    - Extends material component
-    - [X] ~a~ button cannot be disabled. Disabling is done via
-      ~button.disabled~ property where ~a~ doesn't have. Maybe it's
-      semantically incorrect to /disable/ a link?
+   - Extends material component
+   - [X] ~a~ button cannot be disabled. Disabling is done via
+     ~button.disabled~ property where ~a~ doesn't have. Maybe it's
+     semantically incorrect to /disable/ a link?
 
-  - [X] icon
+** icon
 
-    1. easily integrated.
-    2. probably could keep using the existing icon styles unless we like
-       new approach. (ligatures)
-    3. will ligatures possibly simplify use case?
-    4. Ligatures :: which allows rendering of an icon glyph simply by using its textual name.
+   1. easily integrated.
+   2. probably could keep using the existing icon styles unless we like
+      new approach. (ligatures)
+   3. will ligatures possibly simplify use case?
+   4. Ligatures :: which allows rendering of an icon glyph simply by using its textual name.
 
-  - [ ] Tabs
+** TODO Tabs
 
-  - [ ] Dialog
+** Dialog
 
-    + style of courage modal is actually more coming from form.
-    + modal itself has few styles.
-    + customized to FormDialog
+   + style of courage modal is actually more coming from form.
+   + modal itself has few styles.
+   + customized to FormDialog
 
-  - Form
+** Form
 
-    + need more thoughts
+  + need more thoughts
 
-  - Callout
+** Callout
 
-    + demo migrating to a customized component.
-    + [ ] implement the dismiss-able callout
-    + [ ] can icon hardly depend on the top style hence dont need to declare icon?
+   + demo migrating to a customized component.
+   + [X] implement the dismiss-able callout
+   + Improvement: can icon hardly depend on the top style hence dont need to declare icon?
