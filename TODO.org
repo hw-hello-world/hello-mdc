@@ -24,6 +24,11 @@
 
 ** TODO Tabs
 
+** TODO Theme
+
+   - understand the css structure for theme
+   - how to add a theme
+
 ** Dialog
 
    + style of courage modal is actually more coming from form.

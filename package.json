@@ -2,6 +2,9 @@
     "private": true,
     "description": "Hello Material Components Web",
     "license": "Apache-2.0",
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
         "bootstrap": "lerna bootstrap",
         "build": "mkdirp dist && webpack --progress --colors",

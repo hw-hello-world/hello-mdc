@@ -45,7 +45,7 @@ const CSS_LOADER_CONFIG = [
     loader: 'sass-loader',
     options: {
       sourceMap: GENERATE_SOURCE_MAPS,
-      includePaths: glob.sync('packages/*/node_modules').map((d) => path.join(__dirname, d)),
+      includePaths: [path.resolve('./node_modules')],
     },
   },
 ];
@@ -140,8 +140,6 @@ const jsEntries = glob.sync('packages/*/index.js')
 
           return Object.assign(init, {[key]: filepath});
         }, {});
-
-console.log(jsEntries);
 
 module.exports.push({
   name: 'js-components',

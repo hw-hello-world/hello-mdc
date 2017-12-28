@@ -1,5 +1,4 @@
 ## Setup
 
-1. `npm install`
-2. `npm run bootstrap`
-3. `npm run dev` and open browser at <http://0.0.0.0:9999/>
+1. `yarn install`
+3. `yarn dev` and open browser at <http://0.0.0.0:9999/>
