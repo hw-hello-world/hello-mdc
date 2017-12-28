@@ -6,11 +6,10 @@
         "packages/*"
     ],
     "scripts": {
-        "bootstrap": "lerna bootstrap",
         "build": "mkdirp dist && webpack --progress --colors",
-        "rebuild": "npm run clean && npm run build",
+        "rebuild": "yarn run clean && yarn run build",
         "clean": "del-cli dist/** dist",
-        "dev": "webpack-dev-server --progress --content-base demos --inline --hot --host 0.0.0.0 --port 9999"
+        "demo": "webpack-dev-server --progress --content-base demos --inline --hot --host 0.0.0.0 --port 9999"
     },
     "devDependencies": {
         "autoprefixer": "^7.2.3",
@@ -24,7 +23,6 @@
         "extract-text-webpack-plugin": "^3.0.2",
         "fs-extra": "^5.0.0",
         "glob": "^7.1.2",
-        "lerna": "^2.0.0-rc.5",
         "material-components-web": "^0.27.0",
         "mkdirp": "^0.5.1",
         "node-sass": "^4.7.2",

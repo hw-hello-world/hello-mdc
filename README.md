@@ -1,4 +1,5 @@
 ## Setup
 
-1. `yarn install`
-3. `yarn dev` and open browser at <http://0.0.0.0:9999/>
+1. [install yarn](https://yarnpkg.com/en/docs/install)
+2. run `yarn install`
+3. run `yarn demo` and open browser at <http://0.0.0.0:9999/>
